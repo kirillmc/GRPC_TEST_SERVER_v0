@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package user_v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/kirillmc/GRPC_TEST_SERVER/pkg/user_v1;user_v1";
+
+service UserV1 {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc GetUsers(google.protobuf.Empty) returns (GetUsersResponse);
+  rpc Update(UpdateRequest) returns (google.protobuf.Empty);
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+}
+
+enum Role{
+  UNKNOWN = 0;
+  USER = 1;
+  MODER = 2;
+  ADMIN = 3;
+}
+
+
+message User{
+  string name = 1;
+  string surname = 2;
+  string email = 3;
+  string avatar = 4;
+  string login = 5;
+  string password = 6;
+  Role role = 7;
+  double Weight =8;
+  double Height = 9;
+  bool Locked = 10;
+}
+
+message CreateRequest{
+  User user = 1;
+}
+
+message CreateResponse{
+  int64 Id = 1;
+}
+
+message GetRequest{
+  int64 Id = 1;
+}
+
+message GetResponse{
+  int64 Id = 1;
+  User user =2;
+}
+
+message GetUsersResponse{
+  repeated GetResponse  users = 1;
+}
+
+message UpdateRequest{
+  int64 Id = 1;
+  User user = 2;
+}
+
+message DeleteRequest{
+  int64 Id = 1;
+}
+
